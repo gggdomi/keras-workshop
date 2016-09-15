@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>cats-dogs-images-classifier</title>
+<title>notebook</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -12637,7 +12637,7 @@ Found 832 images belonging to 2 classes.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bottleneck_features_train</span> <span class="o">=</span> <span class="n">model_vgg</span><span class="o">.</span><span class="n">predict_generator</span><span class="p">(</span><span class="n">train_generator_bottleneck</span><span class="p">,</span> <span class="n">nb_train_samples</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bottleneck_features_train.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">),</span> <span class="n">bottleneck_features_train</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/bottleneck_features_train.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">),</span> <span class="n">bottleneck_features_train</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12651,7 +12651,7 @@ Found 832 images belonging to 2 classes.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bottleneck_features_validation</span> <span class="o">=</span> <span class="n">model_vgg</span><span class="o">.</span><span class="n">predict_generator</span><span class="p">(</span><span class="n">validation_generator_bottleneck</span><span class="p">,</span> <span class="n">nb_validation_samples</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bottleneck_features_validation.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">),</span> <span class="n">bottleneck_features_validation</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/bottleneck_features_validation.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">),</span> <span class="n">bottleneck_features_validation</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12674,10 +12674,10 @@ Found 832 images belonging to 2 classes.
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bottleneck_features_train.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/bottleneck_features_train.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
 <span class="n">train_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">nb_train_samples</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">nb_train_samples</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
 
-<span class="n">validation_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bottleneck_features_validation.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<span class="n">validation_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;models/bottleneck_features_validation.npy&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
 <span class="n">validation_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">nb_validation_samples</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">nb_validation_samples</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
