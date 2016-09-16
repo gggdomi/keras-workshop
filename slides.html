@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link href="slides-resources/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+### Workshop
+#Introduction to Keras
+
+.footnote[Slides and notebooks available on GitHub: [github.com/gggdominici/keras-workshop](https://github.com/gggdominici/keras-workshop)]
+---
+layout: false
+background-image: url(slides-resources/keras-logo.jpg)
+
+.left-column[
+## Table of contents
+]
+.right-column[
+<br/><br/><br/>
+1. Introduction : Neural Networks and Deep Learning
+
+2. Overview of Keras and other NN frameworks
+
+3. Installing Keras
+
+4. Image classification in a few dozens lines of code with Keras ([notebook](https://github.com/gggdominici/keras-workshop/blob/master/notebook.ipynb))
+    - Data loading
+    - Model definition, training and evaluation
+    - Data augmentation
+    - Using a pre-trained network with bottleneck
+]
+---
+template: inverse
+# 1. Introduction : 
+# Neural Networks 
+# and Deep Learning
+---
+background-image: url(slides-resources/keras-logo.jpg)
+# Neural networks
+<img src="slides-resources/shallow_nn.png" style="width: 100%" />
+---
+background-image: url(slides-resources/keras-logo.jpg)
+# Deep Learning
+.center[
+Additional layers provide more abstraction
+
+
+<img src="slides-resources/deep_nn.png" style="width: 100%" />
+
+*Schematic representation of a deep neural network*
+]
+---
+background-image: url(slides-resources/keras-logo.jpg)
+# Deep Learning Success #1
+---
+background-image: url(slides-resources/keras-logo.jpg)
+# Deep Learning Success #2
+---
+template: inverse
+# 2. Overview of Keras 
+# and other NN frameworks
+---
+background-image: url(slides-resources/keras-logo.jpg)
+# Problem
+
+### Models...
+
+
+--
+- ...are more and more complex
+
+
+--
+- ...need more and more computationally power
+
+
+--
+- ...require more and more datas
+
+
+--
+### We need efficient and highly-abstracted frameworks
+---
+background-image: url(slides-resources/keras-logo.jpg)
+.left-column[
+### Problem
+### Most popular frameworks
+]
+.right-column[
+### Dozens of frameworks are available :
+- [Theano](http://deeplearning.net/software/theano/index.html)
+    - Lower level
+    
+- [TensorFlow](https://www.tensorflow.org/)
+    - Lower level
+
+- [Torch](http://torch.ch/)
+    - Similar to Keras in use
+    - Written in Lua
+    
+- [Caffee](http://caffe.berkeleyvision.org/)
+
+- [deeplearning4j](http://deeplearning4j.org/)
+
+- [Neon](http://neon.nervanasys.com/index.html/)
+
+- ...
+]
+---
+background-image: url(slides-resources/keras-logo.jpg)
+.left-column[
+### Problem
+### Most popular frameworks
+### Why Keras?
+]
+.right-column[
+### Some specifities :
+- Backend agnostic
+    - Theano, TensorFlow... and more to come
+
+- Efficient
+    - ... as Theano or TensorFlow
+    
+    - GPU computation
+
+- Written in Python
+
+- High-level of abstraction
+    - Ease-of-use and readability
+
+]
+---
+background-image: url(slides-resources/keras-logo.jpg)
+.left-column[
+### Problem
+### Most popular frameworks
+### Why Keras?
+### Ease of use and readability
+]
+.right-column[
+Code-snippet for a XOR NN :
+```python
+import numpy as np
+from keras.models import Sequential
+from keras.layers.core import Activation, Dense
+from keras.optimizers import SGD
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+
+model = Sequential()
+model.add(Dense(2, input_dim=2, activation='sigmoid'))
+model.add(Dense(1, activation='sigmoid'))
+
+sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='mean_squared_error', optimizer=sgd)
+
+history = model.fit(X, y, nb_epoch=10000, batch_size=4)
+
+print(model.predict(X))
+```
+
+- [Comparison with a TensorFlow implementation](https://gist.github.com/cburgdorf/e2fb46e5ad61ed7b9a29029c5cc30134)
+
+- Deep Compositional Captioning: Describing Novel Object Categories without Paired Training Data
+    
+    - [Original paper](https://arxiv.org/pdf/1511.05284v2)
+    - [Keras implementation](https://gist.github.com/fchollet/0ecc151189b997fd4400bc2fecf2489f)
+]
+---
+template: inverse
+# 3. Keras Installation
+---
+background-image: url(slides-resources/keras-logo.jpg)
+## Keras Installation
+
+- [Theano](http://deeplearning.net/software/theano/install.html) :
+    - `pip3 install Theano`
+
+- [TensorFlow](https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#pip-installation) :
+    - `$ export TF_BINARY_URL=...` [[choose link here](https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#pip-installation)]
+    - `pip3 install $TF_BINARY_URL` [](https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#pip-installation)
+
+- [Keras](https://keras.io/#installation) : 
+    - `pip3 install keras`
+    
+- To enable GPU computing :
+    - [NVidia Cuda](http://www.nvidia.fr/object/cuda-parallel-computing-fr.html)
+    
+    - [CuDNN](https://developer.nvidia.com/cudnn)
+    
+    - [CNMeM](https://github.com/NVIDIA/cnmem)
+---
+layout: true
+class: center, middle
+---
+# Ready to go !
+
+`import keras` from a python script, notebook or shell
+---
+template: inverse
+# 4. Image classification 
+# with Keras 
+---
+layout: false
+background-image: url(slides-resources/keras-logo.jpg)
+## Classifying dogs vs cats pictures
+
+- Kaggle competition launched in late 2013
+
+> *"The current literature suggests machine classifiers can score above 80% accuracy on this task"*
+
+
+--
+- Leaderboard (frozen in 2014)
+
+    - top 100 : 80% accuracy
+    - top 10 : 98% accuracy
+
+--
+- [Dataset](https://www.kaggle.com/c/dogs-vs-cats/data) : 12,500 pictures of cats + 12,500 of dogs
+
+
+--
+- We will only consider 1,000 pictures of each (8% of the dataset) 
+---
+class: center, middle
+# Go to the
+# [notebook](https://github.com/gggdominici/keras-workshop/blob/master/notebook.ipynb)
+---
+template: inverse
+# Thanks !
+
+<br/>
+
+Any questions ?  
+[guillaume.dominici@xbrain.io](mailto:guillaume.dominici@xbrain.io)
+
+<br/>
+
+Slides and notebook available on GitHub :  
+https://github.com/gggdominici/keras-workshop
+
+<br/>
+[ Most important ! ]  
+Keras website : http://keras.io/
+    </textarea>
+    <script src="slides-resources/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
